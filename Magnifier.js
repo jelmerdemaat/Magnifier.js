@@ -20,7 +20,7 @@
 *
 * @author Mark Rolich <mark.rolich@gmail.com>
 */
-var Magnifier = function (evt, options) {
+var Magnifier = function (options) {
     "use strict";
 
     var gOptions = options || {},
@@ -297,13 +297,10 @@ var Magnifier = function (evt, options) {
 
                 if (curData.zoomAttached === false) {
                     if (curData.zoomable !== undefined && curData.zoomable === true) {
-                        evt.attach('mousewheel', curLens, zoomInOut);
-
-                        if (window.addEventListener) {
-                            curLens.addEventListener('DOMMouseScroll', function (e) {
-                                zoomInOut(e);
-                            });
-                        }
+                        curLens.addEventListener('mousewheel', zoomInOut);
+                        curLens.addEventListener('DOMMouseScroll', function (e) {
+                            zoomInOut(e);
+                        });
                     }
 
                     curData.zoomAttached = true;
@@ -513,10 +510,12 @@ var Magnifier = function (evt, options) {
             onthumbmove: onthumbmove
         };
 
-        evt.attach('mouseover', thumb, function (e, src) {
+        thumb.addEventListener('mouseover', function (e) {
             if (curData.status !== 0) {
                 onThumbLeave();
             }
+
+            var src = this;
 
             curIdx = src.id;
             curThumb = src;
@@ -544,17 +543,17 @@ var Magnifier = function (evt, options) {
             }
         }, false);
 
-        evt.attach('mousemove', thumb, function (e, src) {
+        thumb.addEventListener('mousemove', function () {
             isOverThumb = 1;
         });
 
-        evt.attach('load', thumbObj, function () {
+        thumbObj.addEventListener('load', function () {
             data[idx].status = 1;
 
             setThumbData(thumb, data[idx]);
             updateLensOnLoad(idx);
 
-            evt.attach('load', largeObj, function () {
+            largeObj.addEventListener('load', function () {
                 data[idx].status = 2;
                 updateLensOnLoad(idx, thumb, largeObj, largeWrapper);
             });
@@ -565,7 +564,7 @@ var Magnifier = function (evt, options) {
         thumbObj.src = thumb.src;
     };
 
-    evt.attach('mousemove', document, function (e) {
+    document.addEventListener('mousemove', function (e) {
         pos.x = e.clientX;
         pos.y = e.clientY;
 
@@ -582,9 +581,11 @@ var Magnifier = function (evt, options) {
         }
     }, false);
 
-    evt.attach('scroll', window, function () {
+    window.addEventListener('scroll', function () {
         if (curThumb !== null) {
             setThumbData(curThumb, curData);
         }
     });
 };
+
+module.exports = Magnifier;

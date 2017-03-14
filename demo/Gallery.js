@@ -53,7 +53,8 @@ var Gallery = function (evt, m, options) {
 
         m.attach({
             thumb: '.img',
-            zoomable: true
+            zoomable: true,
+            largeWrapper: '#gallery-preview'
         });
     };
 

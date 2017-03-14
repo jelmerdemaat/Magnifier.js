@@ -113,26 +113,7 @@ var Magnifier = function (options) {
             return list;
         },
         $ = function (selector) {
-            var idx = '',
-                type = selector.charAt(0),
-                result = null;
-
-            if (type === '#' || type === '.') {
-                idx = selector.substr(1, selector.length);
-            }
-
-            if (idx !== '') {
-                switch (type) {
-                case '#':
-                    result = document.getElementById(idx);
-                    break;
-                case '.':
-                    result = getElementsByClass(idx);
-                    break;
-                }
-            }
-
-            return result;
+            return document.querySelector(selector);
         },
         createLens = function (thumb, idx) {
             var lens = document.createElement('div');
@@ -439,9 +420,9 @@ var Magnifier = function (options) {
             zoomable    = null,
             largeUrl    = null,
             largeWrapper = (
-                $('#' + options.largeWrapper) ||
-                $('#' + thumb.getAttribute('data-large-img-wrapper')) ||
-                $('#' + curData.largeWrapperId)
+                $(options.largeWrapper) ||
+                $(thumb.getAttribute('data-large-img-wrapper')) ||
+                $(curData.largeWrapperId)
             ),
             zoom = options.zoom || thumb.getAttribute('data-zoom') || gZoom,
             zoomMin = options.zoomMin || thumb.getAttribute('data-zoom-min') || gZoomMin,
@@ -588,4 +569,6 @@ var Magnifier = function (options) {
     });
 };
 
-module.exports = Magnifier;
+if(typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = Magnifier;
+}

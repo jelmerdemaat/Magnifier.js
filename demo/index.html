@@ -88,7 +88,7 @@ var evt = new Event(),
         <a class="magnifier-thumb-wrapper demo" href="http://en.wikipedia.org/wiki/File:Starry_Night_Over_the_Rhone.jpg">
             <img id="thumb" src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Starry_Night_Over_the_Rhone.jpg/200px-Starry_Night_Over_the_Rhone.jpg"
             data-large-img-url="http://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Starry_Night_Over_the_Rhone.jpg/400px-Starry_Night_Over_the_Rhone.jpg"
-            data-large-img-wrapper="preview">
+            data-large-img-wrapper="#preview">
         </a>
         <div class="magnifier-preview example heading" id="preview" style="width: 200px; height: 133px">Starry Night Over The Rhone<br>by Vincent van Gogh</div>
     </div>
@@ -474,7 +474,7 @@ m.attach({
 m.attach({
     thumb: '#thumb1',
     large: 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Starry_Night_Over_the_Rhone.jpg/1200px-Starry_Night_Over_the_Rhone.jpg',
-    largeWrapper: 'preview1',
+    largeWrapper: '#preview1',
     zoom: 3,
     zoomable: false
 });
@@ -482,7 +482,7 @@ m.attach({
 m.attach({
     thumb: '#thumb2',
     large: 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Starry_Night_Over_the_Rhone.jpg/1600px-Starry_Night_Over_the_Rhone.jpg',
-    largeWrapper: 'preview2',
+    largeWrapper: '#preview2',
     zoom: 2,
     zoomable: true,
     onthumbenter: function (data) {

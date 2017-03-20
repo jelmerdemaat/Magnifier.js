@@ -4,7 +4,8 @@
   "description": "Magnifier.js\r =================",
   "main": "Magnifier.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --tab-width=4 --single-quote --write Magnifier.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/groveco/Magnifier.js/issues"
   },
-  "homepage": "https://github.com/groveco/Magnifier.js#readme"
+  "homepage": "https://github.com/groveco/Magnifier.js#readme",
+  "devDependencies": {
+    "prettier": "^0.22.0"
+  }
 }

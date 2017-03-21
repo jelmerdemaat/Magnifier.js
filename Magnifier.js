@@ -504,7 +504,10 @@ var Magnifier = function(options) {
 
         createLens(thumb, idx);
 
-        largeWrapper.style.height = `${thumb.offsetHeight / thumb.offsetWidth * largeWrapper.offsetWidth}px`;
+        largeWrapper.style.height = thumb.offsetHeight /
+            thumb.offsetWidth *
+            largeWrapper.offsetWidth +
+            'px';
 
         data[idx] = {
             zoom: zoom,

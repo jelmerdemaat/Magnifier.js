@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/groveco/Magnifier.js.git"
+    "url": "git+https://github.com/jelmerdemaat/Magnifier.js.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/groveco/Magnifier.js/issues"
+    "url": "https://github.com/jelmerdemaat/Magnifier.js/issues"
   },
-  "homepage": "https://github.com/groveco/Magnifier.js#readme",
+  "homepage": "https://github.com/jelmerdemaat/Magnifier.js#readme",
   "devDependencies": {
     "prettier": "^0.22.0"
   }

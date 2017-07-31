@@ -82,6 +82,7 @@ var Magnifier = function(options) {
         data = {},
         inBounds = false,
         isOverThumb = 0,
+        largeViewPadding = 10,
         $ = function(selector) {
             return document.querySelector(selector);
         },
@@ -113,10 +114,12 @@ var Magnifier = function(options) {
                 curData.lensBgY +
                 'px';
 
-            curLarge.style.left = '-' + curData.largeL + 'px';
-            curLarge.style.top = '-' + curData.largeT + 'px';
-            curLarge.style.width = curData.largeW + 'px';
-            curLarge.style.height = curData.largeH + 'px';
+            curLarge.style.left = -1 * curData.largeL + largeViewPadding + 'px';
+            curLarge.style.top = -1 * curData.largeT + largeViewPadding + 'px';
+            curLarge.style.width = curData.largeW - largeViewPadding * 2 + 'px';
+            curLarge.style.height = curData.largeH -
+                largeViewPadding * 2 +
+                'px';
         },
         updateLensOnLoad = function(idx, thumb, large, largeWrapper) {
             var lens = $('#' + idx + '-lens'), textWrapper = null;
@@ -136,8 +139,12 @@ var Magnifier = function(options) {
                     ') no-repeat 0 0 scroll';
 
                 large.id = idx + '-large';
-                large.style.width = data[idx].largeW + 'px';
-                large.style.height = data[idx].largeH + 'px';
+                large.style.width = data[idx].largeW -
+                    largeViewPadding * 2 +
+                    'px';
+                large.style.height = data[idx].largeH -
+                    largeViewPadding * 2 +
+                    'px';
                 large.className = 'magnifier-large hidden';
 
                 if (data[idx].mode === 'inside') {
@@ -338,8 +345,13 @@ var Magnifier = function(options) {
                 } else if (curData.status === 2) {
                     curLens.className = 'magnifier-lens';
                     curLarge.className = 'magnifier-large';
-                    curLarge.style.left = '-' + curData.largeL + 'px';
-                    curLarge.style.top = '-' + curData.largeT + 'px';
+
+                    curLarge.style.left = -1 * curData.largeL +
+                        largeViewPadding +
+                        'px';
+                    curLarge.style.top = -1 * curData.largeT +
+                        largeViewPadding +
+                        'px';
                 }
 
                 if (curThumb && curThumb.offsetLeft) {
@@ -375,6 +387,7 @@ var Magnifier = function(options) {
         },
         setThumbData = function(thumb, thumbData) {
             var thumbBounds = thumb.getBoundingClientRect(),
+                thumbStyle = window.getComputedStyle(thumb),
                 clientRectCheckElm,
                 w = 0,
                 h = 0;
@@ -388,12 +401,21 @@ var Magnifier = function(options) {
 
             thumbData.x = thumbBounds.left;
             thumbData.y = thumbBounds.top;
-            thumbData.w = Math.round(thumbBounds.right - thumbData.x);
-            thumbData.h = Math.round(thumbBounds.bottom - thumbData.y);
+            thumbData.w = Math.ceil(
+                thumbBounds.width +
+                    parseInt(thumbStyle.borderLeftWidth, 10) +
+                    parseInt(thumbStyle.borderRightWidth, 10)
+            );
+            thumbData.h = Math.ceil(
+                thumbBounds.height +
+                    parseInt(thumbStyle.borderTopWidth, 10) +
+                    parseInt(thumbStyle.borderBottomWidth, 10)
+            );
+            console.log(thumbData.w, thumbData.h);
             thumbData.ratio = thumbData.h / thumbData.w;
 
-            thumbData.lensW = Math.round(thumbData.w / thumbData.zoom);
-            thumbData.lensH = Math.round(thumbData.h / thumbData.zoom);
+            thumbData.lensW = Math.ceil(thumbData.w / thumbData.zoom);
+            thumbData.lensH = Math.ceil(thumbData.h / thumbData.zoom);
 
             if (thumbData.mode === 'inside') {
                 w = thumbData.w;
@@ -403,8 +425,8 @@ var Magnifier = function(options) {
                 h = thumbData.largeWrapperH;
             }
 
-            thumbData.largeW = Math.round(thumbData.zoom * w);
-            thumbData.largeH = Math.round(thumbData.zoom * h);
+            thumbData.largeW = Math.ceil(thumbData.zoom * w);
+            thumbData.largeH = Math.ceil(thumbData.zoom * h);
         };
 
     this.attach = function(options) {

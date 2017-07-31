@@ -411,7 +411,6 @@ var Magnifier = function(options) {
                     parseInt(thumbStyle.borderTopWidth, 10) +
                     parseInt(thumbStyle.borderBottomWidth, 10)
             );
-            console.log(thumbData.w, thumbData.h);
             thumbData.ratio = thumbData.h / thumbData.w;
 
             thumbData.lensW = Math.ceil(thumbData.w / thumbData.zoom);
